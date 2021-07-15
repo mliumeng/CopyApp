@@ -1,0 +1,4 @@
+include ':submodule'
+include ':commom'
+include ':app'
+rootProject.name = "CopyApp"

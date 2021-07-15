@@ -1,0 +1,49 @@
+@startuml
+interface IHomeAction{
+    + onCreate()
+    + onResume()
+    + onRedButtonClick(view: View):Boolean
+    + onGreenButtonClick(view: View)
+}
+
+
+ AHomeActionImpl --> IHomeAction
+ BHomeActionImpl --> IHomeAction
+
+ interface IAction{}
+IHomeAction --> IAction
+
+
+ class HomeActivity{
+  # iHomeAction: IHomeAction
+ }
+note bottom of HomeActivity
+ HomeActivity 持有的 <b>IHomeAction</b>
+ 在不同马甲包里面有不同的实现方式
+eg:
+<u><color:royalBlue>redButton.setOnClickListener{
+<u><color:royalBlue>  iHomeAction?.onRedButtonClick(it)
+<u><color:royalBlue>}</color></u>
+
+end note
+
+class ActionManager{
+  + map:Map<Class,IAction>
+  + registe(actionimpl:IAction)
+}
+
+
+class BppActionRegister{
++ onCreate()
+}
+
+
+class AppActionRegister{
++ onCreate()
+}
+
+AppActionRegister-->FileProvider
+BppActionRegister-->FileProvider
+
+
+@enduml
